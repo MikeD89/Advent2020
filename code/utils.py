@@ -13,3 +13,13 @@ def load_data(data):
 
 def convert_string_data_to_ints(data): 
     return [int(numeric_string) for numeric_string in data]
+
+def count_characters_in_string(string, char) :
+    count = 0
+    for c in string:
+        if c == char:
+            count += 1
+    return count
+
+def int_in_range(num, low, max) :
+    return num >= int(low) and num <= int(max)
