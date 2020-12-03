@@ -29,7 +29,8 @@ def partOne(data):
 
 
 def partTwo(data):
-    return calcSlope(data, 1, 1) * \
+    return \
+        calcSlope(data, 1, 1) * \
         calcSlope(data, 3, 1) * \
         calcSlope(data, 5, 1) * \
         calcSlope(data, 7, 1) * \
