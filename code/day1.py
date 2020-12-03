@@ -19,5 +19,6 @@ if __name__ == "__main__":
     nums = utils.convert_string_data_to_ints(data)
 
     # Do puzzle
+    print("---- Day 1 ----")
     print("Part 1: " + partOne(nums))
     print("Part 2: " + partTwo(nums))

@@ -35,5 +35,6 @@ if __name__ == "__main__":
     data = utils.load_data("day2.txt")
 
     # Do puzzle
+    print("---- Day 2 ----")
     print("Part 1: " + str(partOne(data)))
     print("Part 2: " + str(partTwo(data)))
