@@ -68,10 +68,6 @@ def partOne(data):
     return sum(1 for x in data if isValid(x))
 
 
-def partTwo(data):
-    return ""
-
-
 if __name__ == "__main__":
     # Load Data
     data = utils.load_data("day4.txt")
