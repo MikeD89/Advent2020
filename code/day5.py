@@ -36,7 +36,7 @@ def partOne(data):
     m = 0
     for line in data:
         s = processSeat(line)
-        m = s if s > m else m
+        m = max(s, m)
     return m
 
 
