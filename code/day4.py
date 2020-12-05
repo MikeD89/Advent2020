@@ -1,6 +1,8 @@
 import utils
 import re
 
+validEyes = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+
 
 def processData(data):
     curr = ""
@@ -58,7 +60,7 @@ def isValid(item):
         "eyr" in item and checkNum(item["eyr"], 4, 2020, 2030) and \
         "hgt" in item and isMeasurement(item["hgt"]) and \
         "hcl" in item and isColour(item["hcl"]) and \
-        "ecl" in item and isFromArray(item["ecl"], ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]) and \
+        "ecl" in item and isFromArray(item["ecl"], validEyes) and \
         "pid" in item and checkId(item["pid"])
 
     return valid
@@ -75,5 +77,6 @@ if __name__ == "__main__":
 
     # Do puzzle
     print("---- Day 4 ----")
-    print("Part 1: " + str(partOne(parsedData)))
-    # print("Part 2: " + str(partTwo(parsedData)))
+
+    # Part 1 no longer works, as the workings of the "isValid" method were improved
+    print("Part 2: " + str(partOne(parsedData)))
