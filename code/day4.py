@@ -5,26 +5,7 @@ validEyes = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
 
 
 def processData(data):
-    curr = ""
-    retVal = []
-
-    # fun to bank line
-    def bank(line):
-        # bank
-        keyValue = line.strip().split(" ")
-        d = dict(s.split(":") for s in keyValue)
-        retVal.append(d)
-
-    for line in data:
-        curr += line + " "
-        if not line:
-            bank(curr)
-            curr = ""
-
-    # dont forget the last one
-    bank(curr)
-
-    return retVal
+    return utils.join_string_line_sets_to_map(data)
 
 
 def checkNum(item, digits, min, max):

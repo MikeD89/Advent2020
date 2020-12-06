@@ -29,3 +29,46 @@ def count_characters_in_string(string, char):
 
 def int_in_range(num, low, max):
     return num >= int(low) and num <= int(max)
+
+
+def join_string_line_sets_to_map(data):
+    curr = ""
+    retVal = []
+
+    # fun to bank line
+    def bank(line):
+        # bank
+        keyValue = line.strip().split(" ")
+        d = dict(s.split(":") for s in keyValue)
+        retVal.append(d)
+
+    for line in data:
+        curr += line + " "
+        if not line:
+            bank(curr)
+            curr = ""
+
+    # dont forget the last one
+    bank(curr)
+
+    return retVal
+
+
+def join_string_line_sets_to_strings(data):
+    curr = ""
+    retVal = []
+
+    # fun to bank line
+    def bank(line):
+        retVal.append(line)
+
+    for line in data:
+        curr += line + " "
+        if not line:
+            bank(curr)
+            curr = ""
+
+    # dont forget the last one
+    bank(curr)
+
+    return retVal
