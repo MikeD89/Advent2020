@@ -1,4 +1,22 @@
 import os
+import time
+
+
+def run(day, process, tests, part1, part2):
+    data = load_data_by_day(day)
+    processed = process(data)
+
+    # Run
+    tR = time_function(lambda: tests()) if tests is not None else None
+    p1R = time_function(lambda: part1(processed))
+    p2R = time_function(lambda: part2(processed))
+
+    # Print
+    print("----- Day %s -----" % day)
+    if tR is not None:
+        print("Tests  ({}) -> {}".format(tR[1], tR[0]))
+    print("Part 1 ({}) -> {}".format(p1R[1], p1R[0]))
+    print("Part 2 ({}) -> {}".format(p2R[1], p2R[0]))
 
 
 def get_dir() -> str:
@@ -7,6 +25,10 @@ def get_dir() -> str:
 
 def get_input_dir() -> str:
     return os.path.realpath(os.path.join(get_dir(), "..\input"))
+
+
+def load_data_by_day(day):
+    return load_data("day%s.txt" % day)
 
 
 def load_data(data):
@@ -72,3 +94,11 @@ def join_string_line_sets_to_strings(data):
     bank(curr)
 
     return retVal
+
+
+def time_function(f):
+    before = time.time()
+    ret = f()
+    after = time.time()
+    timeString = '{:.3f} ms'.format((after-before)*1000.0)
+    return (ret, timeString)

@@ -1,17 +1,20 @@
-import utils
+from utils import utils
 
-def partOne(data) :
+
+def partOne(data):
     for n in data:
-        partner = 2020 - n 
+        partner = 2020 - n
         if partner in data:
             return str(partner * n)
 
-def partTwo(data) :
+
+def partTwo(data):
     for n in data:
         for i in data:
             partner = 2020 - n - i
             if partner in data:
                 return str(partner * n * i)
+
 
 if __name__ == "__main__":
     # Load Data

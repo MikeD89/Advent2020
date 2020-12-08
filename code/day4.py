@@ -1,4 +1,4 @@
-import utils
+from utils import utils
 import re
 
 validEyes = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]

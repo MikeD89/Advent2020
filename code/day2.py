@@ -1,6 +1,7 @@
-import utils
+from utils import utils
 
-def processItem(line) :
+
+def processItem(line):
     delims = "- :"
     retVal = []
     for d in delims:
@@ -11,7 +12,8 @@ def processItem(line) :
     retVal.append(line.strip())
     return retVal
 
-def partOne(data) :
+
+def partOne(data):
     valid = 0
     for n in data:
         l, u, k, p = processItem(n)
@@ -21,7 +23,8 @@ def partOne(data) :
 
     return valid
 
-def partTwo(data) :
+
+def partTwo(data):
     valid = 0
     for n in data:
         p1, p2, k, p = processItem(n)
@@ -29,6 +32,7 @@ def partTwo(data) :
             valid += 1
 
     return valid
+
 
 if __name__ == "__main__":
     # Load Data
