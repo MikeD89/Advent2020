@@ -1,40 +1,40 @@
 from utils import utils
-from tests import day8_test as d8t
+from tests import day8_test as tests
 
 
 class BootCode:
     def __init__(self):
         self.accumulator = 0
-        self.pointer = 0
+        self.address = 0
         self.lastAccumulator = self.accumulator
-        self.lastPointer = self.pointer
+        self.lastAddress = self.address
 
     def run(self, program):
         ranLines = set()
         while True:
-            if self.pointer in ranLines:
+            if self.address in ranLines:
                 return self.accumulator
 
             # Store the line and run it
-            ranLines.add(self.pointer)
+            ranLines.add(self.address)
             self.next(program)
 
     def next(self, program):
         # Runs the next step
-        self.stepTuple(program[self.pointer])
+        self.stepTuple(program[self.address])
 
     def acc(self, val):
         # Accumulate the variable
         self.accumulator += val
-        self.pointer += 1
+        self.address += 1
 
     def jmp(self, val):
-        # Jump the pointer elsewhere
-        self.pointer += val
+        # Jump the address elsewhere
+        self.address += val
 
     def nop(self, val):
         # No-op does nothing
-        self.pointer += 1
+        self.address += 1
 
     def stepTuple(self, line):
         # Runs a tuple step
@@ -42,7 +42,7 @@ class BootCode:
 
     def step(self, task, value):
         # Save state
-        self.lastPointer = self.pointer
+        self.lastAddress = self.address
         self.lastAccumulator = self.accumulator
 
         # Runs a manual step
@@ -54,7 +54,7 @@ class BootCode:
 
     def undo(self):
         # Undo state
-        self.pointer = self.lastPointer
+        self.address = self.lastAddress
         self.accumulator = self.lastAccumulator
 
 
@@ -63,14 +63,14 @@ class BootCodeEOFVarient(BootCode):
         ranLines = set()
 
         while True:
-            if self.pointer in ranLines:
+            if self.address in ranLines:
                 return False
 
-            if self.pointer > (len(program) - 1):
+            if self.address > (len(program) - 1):
                 return True
 
             # Store the line and run it
-            ranLines.add(self.pointer)
+            ranLines.add(self.address)
             self.next(program)
 
 
@@ -97,16 +97,18 @@ def partTwo(data):
             continue
 
         # Modify the data
-        modData = data.copy()
         newOp = "jmp" if inst == "nop" else "nop"
-        modData[i] = tuple([newOp, data[i][1]])
+        data[i] = tuple([newOp, data[i][1]])
 
         # Test
         bc = BootCodeEOFVarient()
-        success = bc.run(modData)
+        success = bc.run(data)
         if success:
             return bc.accumulator
 
+        # Reset the op
+        data[i] = tuple([inst, data[i][1]])
+
 
 if __name__ == "__main__":
-    utils.run(8, process, d8t.test, partOne, partTwo)
+    utils.run(8, process, tests.test, partOne, partTwo)
