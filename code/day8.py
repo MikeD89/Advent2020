@@ -1,5 +1,5 @@
 from utils import utils
-from tests import day8_test
+from tests import day8_test as d8t
 
 
 class BootCode:
@@ -74,7 +74,7 @@ class BootCodeEOFVarient(BootCode):
             self.next(program)
 
 
-def process_data(data):
+def process(data):
     processed = []
     for line in data:
         split = line.split(" ")
@@ -108,14 +108,5 @@ def partTwo(data):
             return bc.accumulator
 
 
-def runDay8():
-    day = 8
-    utils.run(day,
-              process_data,
-              day8_test.test,
-              partOne,
-              partTwo)
-
-
 if __name__ == "__main__":
-    runDay8()
+    utils.run(8, process, d8t.test, partOne, partTwo)
