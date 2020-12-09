@@ -52,7 +52,7 @@ def partTwo(data):
 
             total = sum(values)
             if total == invalidNumber:
-                return min(values) + max(values)
+                return str(i) + " --> " + str(min(values) + max(values))
 
             values.pop(0)
             values.append(line)
