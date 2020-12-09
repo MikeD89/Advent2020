@@ -1,9 +1,8 @@
 from utils import utils
-import math
-import string
+from tests import day8_test as tests
 
 
-def process_data(data):
+def process(data):
     processed = []
     for line in data:
         processed.append(line)
@@ -11,31 +10,12 @@ def process_data(data):
 
 
 def partOne(data):
-    return 0
+    return "N/A"
 
 
 def partTwo(data):
-    return 0
-
-
-def testCase(line):
-    assert True
-
-
-def test():
-    testCase("")
-    return "Pass!"
+    return "N/A"
 
 
 if __name__ == "__main__":
-    day = 1
-
-    # Load Data
-    data = utils.load_data("day%s.txt" % day)
-    processed = process_data(data)
-
-    # Do puzzle
-    print("---- Day %s ----" % day)
-    print("Tests:  " + test())
-    print("Part 1: " + str(partOne(processed)))
-    print("Part 2: " + str(partTwo(processed)))
+    utils.run(8, process, tests.test, partOne, partTwo)
