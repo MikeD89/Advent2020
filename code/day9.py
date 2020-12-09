@@ -34,25 +34,29 @@ def partOne(data):
     return "Unknown"
 
 
-def partTwo(data):
-    invalidNumber = partOne(data)
+def partTwo(data, invalidNumber):
 
     for i in range(1, 100):
         values = []
 
         for line in data:
+            # Exit early clause
+            if line > invalidNumber:
+                break
+
             # Preamble
             if len(values) < i:
                 values.append(line)
                 continue
 
+            total = sum(values)
+
             # Exit early clause
-            if line > invalidNumber:
+            if total > invalidNumber:
                 break
 
-            total = sum(values)
             if total == invalidNumber:
-                return str(i) + " --> " + str(min(values) + max(values))
+                return str(min(values) + max(values))
 
             values.pop(0)
             values.append(line)
@@ -60,4 +64,14 @@ def partTwo(data):
 
 
 if __name__ == "__main__":
-    utils.run(9, process, None, partOne, partTwo)
+    data = utils.load_data_by_day(9)
+    processed = process(data)
+
+    # Run
+    p1R = utils.time_function(lambda: partOne(processed))
+    p2R = utils.time_function(lambda: partTwo(processed, p1R[0]))
+
+    # Print
+    print("----- Day %s -----" % 9)
+    print("Part 1 ({}) -> {}".format(p1R[1], p1R[0]))
+    print("Part 2 ({}) -> {}".format(p2R[1], p2R[0]))
