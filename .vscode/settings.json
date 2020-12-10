@@ -2,5 +2,8 @@
     "python.analysis.extraPaths": [
         "code"
     ],
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "python.formatting.autopep8Args": [
+        "--max-line-length=200"
+    ]
 }

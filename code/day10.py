@@ -28,17 +28,15 @@ def partTwo(data):
     cache = collections.defaultdict(int)
 
     cache[0] = 1
-    for number in data:
-        cache[number] = cache[number - 1] + \
-            cache[number - 2] + cache[number - 3]
+    for n in data:
+        cache[n] = cache[n-1] + cache[n-2] + cache[n-3]
 
     return cache[max(data)]
 
 
 def test():
     data1 = sorted([1, 4, 5, 6, 7, 10, 11, 12, 15, 16, 19])
-    data2 = sorted([1, 2, 3, 4, 7, 8, 9, 10, 11, 14, 17, 18, 19, 20, 23,
-                    24, 25, 28, 31, 32, 33, 34, 35, 38, 39, 42, 45, 46, 47, 48, 49])
+    data2 = sorted([1, 2, 3, 4, 7, 8, 9, 10, 11, 14, 17, 18, 19, 20, 23, 24, 25, 28, 31, 32, 33, 34, 35, 38, 39, 42, 45, 46, 47, 48, 49])
     assert partTwo(data1) == 8
     assert partTwo(data2) == 19208
     print("Pass")
