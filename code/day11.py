@@ -1,3 +1,4 @@
+from typing import Counter
 from day10 import test
 from utils import utils
 from tests import day11_test as tests
@@ -42,28 +43,33 @@ class GameOfSeats:
 
     ################################
     def cycle(self):
-        newSeats = copy.deepcopy(self.seatPlan)
+        newSeats = []
+        same = True
 
         for i in range(len(self.seatPlan)):
+            newRow = []
             for j in range(len(self.seatPlan[i])):
                 # Calculate values
                 c = self.seatPlan[i][j]
                 a = self._checkAdjancy(i, j)
-                if c == None:
-                    continue
 
                 # Check state
                 if c == True:
                     # Check for death
                     if a >= self.delta:
-                        newSeats[i][j] = False
+                        c = False
+                        same = False
                 elif c == False:
                     # Check for new life
                     if a == 0:
-                        newSeats[i][j] = True
+                        c = True
+                        same = False
+
+                newRow.append(c)
+
+            newSeats.append(newRow)
 
         # Has it settled?
-        same = (self.seatPlan == newSeats)
         self.seatPlan = newSeats
         return same
 
