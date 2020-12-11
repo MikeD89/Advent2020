@@ -76,6 +76,7 @@ class GameOfSeats:
 
     ################################
     def converge(self):
+        # Just stop potnetial infinite loops
         getOutOfJail = 5000
         while(True):
             if self.cycle():
@@ -83,6 +84,7 @@ class GameOfSeats:
             getOutOfJail -= 1
             assert getOutOfJail > 0
 
+    ################################
     def printData(self):
         print("-----------------------------")
         for i in range(len(self.seatPlan)):
