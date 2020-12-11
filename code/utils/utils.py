@@ -8,15 +8,17 @@ def run(day, process, tests, part1, part2):
 
     # Run
     tR = time_function(lambda: tests()) if tests is not None else None
-    p1R = time_function(lambda: part1(processed))
-    p2R = time_function(lambda: part2(processed))
+    p1R = time_function(lambda: part1(processed)) if part1 is not None else None
+    p2R = time_function(lambda: part2(processed)) if part2 is not None else None
 
     # Print
     print("----- Day %s -----" % day)
     if tR is not None:
         print("Tests  ({}) -> {}".format(tR[1], tR[0]))
-    print("Part 1 ({}) -> {}".format(p1R[1], p1R[0]))
-    print("Part 2 ({}) -> {}".format(p2R[1], p2R[0]))
+    if p1R is not None:
+        print("Part 1 ({}) -> {}".format(p1R[1], p1R[0]))
+    if p2R is not None:
+        print("Part 2 ({}) -> {}".format(p2R[1], p2R[0]))
 
 
 def get_dir() -> str:
@@ -89,6 +91,27 @@ def join_string_line_sets_to_strings(data):
         if not line:
             bank(curr)
             curr = ""
+
+    # dont forget the last one
+    bank(curr)
+
+    return retVal
+
+
+def join_string_line_sets_to_arrays(data):
+    curr = []
+    retVal = []
+
+    # fun to bank line
+    def bank(line):
+        retVal.append(line)
+
+    for line in data:
+        if line:
+            curr.append(line)
+        if not line:
+            bank(curr)
+            curr = []
 
     # dont forget the last one
     bank(curr)
