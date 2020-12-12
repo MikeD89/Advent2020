@@ -7,6 +7,9 @@ class Navigator:
         self.ew = 0
         self.facing = 90
 
+    def calc(self):
+        return abs(self.ns) + abs(self.ew)
+
     def run(self, program):
         for line in program:
             self.next(line)
@@ -44,6 +47,41 @@ class Navigator:
             self.travel(v)
 
 
+class Waypoint(Navigator):
+    def __init__(self):
+        super().__init__()
+        self.wayNS = 1
+        self.wayEW = 10
+
+    def travel(self, value):
+        self.ns += (self.wayNS * value)
+        self.ew += (self.wayNS * value)
+
+    def step(self, instr, v):
+        if instr == "N":
+            self.wayNS += v
+        elif instr == "S":
+            self.wayNS -= v
+        elif instr == "E":
+            self.wayEW += v
+        elif instr == "W":
+            self.wayEW -= v
+        elif instr == "L":
+            times = int((v % 360) / 90)
+            for i in range(times):
+                store = self.wayEW
+                self.wayEW = -self.wayNS
+                self.wayNS = store
+        elif instr == "R":
+            times = int((v % 360) / 90)
+            for i in range(times):
+                store = self.wayNS
+                self.wayNS = -self.wayEW
+                self.wayEW = store
+        elif instr == "F":
+            self.travel(v)
+
+
 def process(data):
     return data
 
@@ -51,11 +89,13 @@ def process(data):
 def partOne(data):
     n = Navigator()
     n.run(data)
-    return abs(n.ns) + abs(n.ew)
+    return n.calc()
 
 
 def partTwo(data):
-    return None
+    w = Waypoint()
+    w.run(data)
+    return w.calc()
 
 
 if __name__ == "__main__":
