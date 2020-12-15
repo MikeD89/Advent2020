@@ -14,11 +14,11 @@ def run(day, process, tests, part1, part2):
     # Print
     print("----- Day %s -----" % day)
     if tR is not None:
-        print("Tests  ({}) -> {}".format(tR[1], tR[0]))
+        print("T  - {} -> {}".format(tR[1], tR[0]))
     if p1R is not None:
-        print("Part 1 ({}) -> {}".format(p1R[1], p1R[0]))
+        print("P1 - {} -> {}".format(p1R[1], p1R[0]))
     if p2R is not None:
-        print("Part 2 ({}) -> {}".format(p2R[1], p2R[0]))
+        print("P2 - {} -> {}".format(p2R[1], p2R[0]))
 
 
 def get_dir() -> str:
@@ -123,5 +123,12 @@ def time_function(f):
     before = time.time()
     ret = f()
     after = time.time()
-    timeString = '{:.3f} ms'.format((after-before)*1000.0)
+
+    formatType = "ms"
+    ms = (after-before)*1000.0
+    if ms > 1000:
+        formatType = "s"
+        ms /= 1000
+
+    timeString = '{:.0f} {}'.format(ms, formatType)
     return (ret, timeString)
