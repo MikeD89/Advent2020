@@ -1,5 +1,6 @@
 import os
 import time
+from itertools import chain
 
 
 def run(day, process, tests, part1, part2):
@@ -132,3 +133,8 @@ def time_function(f):
 
     timeString = '{:.0f} {}'.format(ms, formatType)
     return (ret, timeString)
+
+
+def splitrange(hyphenString):
+    x = [int(x) for x in hyphenString.split('-')]
+    return range(x[0], x[-1]+1)
