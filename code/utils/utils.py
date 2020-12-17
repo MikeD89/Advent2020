@@ -138,3 +138,7 @@ def time_function(f):
 def splitrange(hyphenString):
     x = [int(x) for x in hyphenString.split('-')]
     return range(x[0], x[-1]+1)
+
+
+def load_test_data(tD):
+    return tD.strip().splitlines()
