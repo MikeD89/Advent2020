@@ -13,6 +13,9 @@ tA2 = 46 + 1445 + 669060 + 23340
 
 
 class Calculator:
+    def __init__(self, pattern):
+        self.pattern = pattern
+
     def findFirstBrackets(self, line):
         # Find those brackets
         bracketStack = list()
@@ -59,35 +62,30 @@ class Calculator:
         brackets = self.findFirstBrackets(line)
         while brackets != None:
             partialLine = line[brackets[0]+1:brackets[1]]
-            partial = self.calc(partialLine)
+            partial = self.calculateLine(partialLine)
             line = str(partial).join([line[:brackets[0]], line[brackets[1]+1:]])
             brackets = self.findFirstBrackets(line)
 
         return self.solve(line, charset)
 
-    def calc(self, line):
-        return int(self.calculate(line, "*+"))
+    def calculateLine(self, line):
+        for charset in self.pattern:
+            line = self.calculate(line, charset)
+        return int(line)
 
     def sumData(self, data):
-        return sum([int(self.calc(line)) for line in data])
-
-
-class CalculatorMk2(Calculator):
-    def calc(self, line):
-        line = self.calculate(line, "+")
-        line = self.calculate(line, "*")
-        return line
+        return sum(self.calculateLine(l) for l in data)
 
 
 def test():
-    assert Calculator().sumData(utils.load_test_data(tD)) == tA1
-    assert CalculatorMk2().sumData(utils.load_test_data(tD)) == tA2
+    assert Calculator(["+*"]).sumData(utils.load_test_data(tD)) == tA1
+    assert Calculator(["+", "*"]).sumData(utils.load_test_data(tD)) == tA2
     return "Pass!"
 
 
 if __name__ == "__main__":
     def process_data(d): return d
-    def partOne(d): return Calculator().sumData(d)
-    def partTwo(d): return CalculatorMk2().sumData(d)
+    def partOne(d): return Calculator(["+*"]).sumData(d)
+    def partTwo(d): return Calculator(["+", "*"]).sumData(d)
 
     utils.run(day, process_data, test, partOne, partTwo)
